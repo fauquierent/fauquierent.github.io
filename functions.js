@@ -42,8 +42,10 @@ function printRelatedLabels_thumbs(e) {
     for (var l = 0; l < relatedUrls.length; l++) relatedUrls[l] != e && relatedTitles[l] || (relatedUrls.splice(l, 1), relatedTitles.splice(l, 1), thumburl.splice(l, 1), l--);
     var r = Math.floor((relatedTitles.length - 1) * Math.random()),
         l = 0;
-    for (relatedTitles.length > 0 && document.write("<div class='title'>" + relatedpoststitle + "</div>"), document.write('<div class="related-post-content main-row"/>'); l < relatedTitles.length && 20 > l && maxresults > l;) document.write('<li><a style="margin:0;padding:0'), document.write(0 != l ? "border-left:solid 0 " + t + ';"' : '"'), document.write(' href="' + relatedUrls[r] + '"><div class="main-related-thumb fau-img"><img alt="' + relatedTitles[r] + '" src="' + thumburl[r] + '"/></div><h3 class="main-related-title">' + relatedTitles[r] + "</h3></a></li>"), l++, r < relatedTitles.length - 1 ? r++ : r = 0;
-    document.write("</div>"), relatedUrls.splice(0, relatedUrls.length), thumburl.splice(0, thumburl.length), relatedTitles.splice(0, relatedTitles.length)
+    for (relatedTitles.length > 0; l < relatedTitles.length && 20 > l && maxresults > l;){
+	document.write('<div class="related-post-content main-row"><li><a style="margin:0;padding:0" href="' + relatedUrls[r] + '"><div class="main-related-thumb fau-img"><img alt="' + relatedTitles[r] + '" src="' + thumburl[r] + '"/></div><h3 class="main-related-title">' + relatedTitles[r] + "</h3></a></li></div>")
+	l++; 
+	r < relatedTitles.length - 1 ? r++ : r = 0;
 eval(document.write.END);
 	
 }
