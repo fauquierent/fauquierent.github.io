@@ -35,8 +35,30 @@ function featuredposts1(e) {
     eval(document.write.END);
 }
 
-function printRelatedLabels_thumbs(e) {
-	 eval(document.write.START);
+function contains_thumbs(e, t) {
+    for (var l = 0; l < e.length; l++)
+        if (e[l] == t) return !0;
+    return !1
+}
+
+                function related_posts(e) {
+    for (var t = 0; t < e.feed.entry.length; t++) {
+        var l = e.feed.entry[t];
+        relatedTitles[relatedTitlesNum] = l.title.$t;
+        try {
+            thumburl[relatedTitlesNum] = l.media$thumbnail.url
+        } catch (r) {
+            s = l.content.$t, a = s.indexOf("<img"), b = s.indexOf('src="', a), c = s.indexOf('"', b + 5), d = s.substr(b + 5, c - b - 5), thumburl[relatedTitlesNum] = -1 != a && -1 != b && -1 != c && "" != d ? d : "undefined" != typeof defaultnoimage ? defaultnoimage : "http://1.bp.blogspot.com/-BEoTKpQrnqw/VKEcJQetDsI/AAAAAAAAVb4/iQtV_se9G9U/w390-h290-c/default.png"
+        }
+        relatedTitles[relatedTitlesNum].length > 150 && (relatedTitles[relatedTitlesNum] = relatedTitles[relatedTitlesNum].substring(0, 150) + "...");
+        for (var i = 0; i < l.link.length; i++) "alternate" == l.link[i].rel && (relatedUrls[relatedTitlesNum] = l.link[i].href, relatedTitlesNum++)
+    }
+
+
+    for (var e = new Array(0), t = new Array(0), l = new Array(0), r = 0; r < relatedUrls.length; r++) contains_thumbs(e, relatedUrls[r]) || (e.length += 1, e[e.length - 1] = relatedUrls[r], t.length += 1, l.length += 1, t[t.length - 1] = relatedTitles[r], l[l.length - 1] = thumburl[r]);
+    relatedTitles = t, relatedUrls = e, thumburl = l
+
+eval(document.write.START);
     var t;
     t = "undefined" != typeof splittercolor ? splittercolor : "#DDDDDD";
     for (var l = 0; l < relatedUrls.length; l++) relatedUrls[l] != e && relatedTitles[l] || (relatedUrls.splice(l, 1), relatedTitles.splice(l, 1), thumburl.splice(l, 1), l--);
@@ -49,7 +71,10 @@ function printRelatedLabels_thumbs(e) {
   }
 relatedUrls.splice(0, relatedUrls.length); thumburl.splice(0, thumburl.length), relatedTitles.splice(0, relatedTitles.length)
     eval(document.write.END);
+
+
 }
+
 var relatedTitles = new Array,
     relatedTitlesNum = 0,
     relatedUrls = new Array,
