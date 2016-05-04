@@ -35,6 +35,43 @@ function featuredposts1(e) {
     eval(document.write.END);
 }
 
+/** 
+	FEATURED POSTS 2
+**/
+function featuredposts2(e) {
+	eval(document.write.START);
+    j = showRandomImg ? Math.floor((imgr.length + 1) * Math.random()) : 0, img = new Array, document.write('<div class="featured-recent featured-recent-2">'), maxpost = numposts2 <= e.feed.entry.length ? numposts2 : e.feed.entry.length;
+    for (var t = 0; maxpost > t; t++) {
+        var r, n, i = e.feed.entry[t],
+            l = i.title.$t;
+        if (t == e.feed.entry.length) break;
+        for (var m = 0; m < i.link.length; m++)
+            if ("alternate" == i.link[m].rel) {
+                n = i.link[m].href;
+                break
+            }
+        for (var m = 0; m < i.link.length; m++)
+            if ("replies" == i.link[m].rel && "text/html" == i.link[m].type) {
+                r = i.link[m].title.split("")[0];
+                break
+            }
+        if ("content" in i) var o = i.content.$t;
+        else if ("summary" in i) var o = i.summary.$t;
+        else var o = "";
+        postdate = i.published.$t, j > imgr.length - 1 && (j = 0), img[t] = imgr[j], s = o, a = s.indexOf("<img"), b = s.indexOf('src="', a), c = s.indexOf('"', b + 5), d = s.substr(b + 5, c - b - 5), -1 != a && -1 != b && -1 != c && "" != d && (img[t] = d);
+        for (var f = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], g = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], p = (postdate.split("-")[2].substring(0, 2), postdate.split("-")[1]), u = (postdate.split("-")[0], 0); u < f.length; u++)
+            if (parseInt(p) == f[u]) {
+                p = g[u];
+                break
+            }
+        r += " comments";
+        var h = '<div class="featured-recent-img fau-img"><a href="' + n + '"><img alt="' + l + '" src="' + img[t].replace(/\/s[0-9]+(\-c)?\//, "/w360-h270-c/") + '"/></a></div><div class="featured-recent-content"><h3 class="featured-recent-title"><a href="' + n + '">' + l + "</a></h3><p>" + removeHtmlTag(o, summaryPost) + "...</p></div>";
+        document.write(h), j++
+    }
+    document.write(" </div>")
+     eval(document.write.END);
+}
+
 function contains_thumbs(e, t) {
     for (var l = 0; l < e.length; l++)
         if (e[l] == t) return !0;
